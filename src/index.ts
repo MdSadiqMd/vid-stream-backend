@@ -1,16 +1,25 @@
 import { Hono } from 'hono';
 import { logger } from 'hono/logger';
 import { serve } from '@hono/node-server';
+import { serveStatic } from 'hono/serve-static';
+
+import cors from './middleware/middleware';
 
 const app = new Hono();
+
+app.use(cors);
+app.use('/uploads', serveStatic({
+    path: './uploads',
+    getContent: async (path, c) => {
+        const filePath = path;
+        const content = await fetch(filePath);
+        return content;
+    },
+}));
 app.use(logger());
 
 app.get('/', (c) => {
     return c.text('Hello Hono!');
-});
-
-app.get('/ping', (c) => {
-    return c.text('pong');
 });
 
 serve({
