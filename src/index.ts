@@ -1,6 +1,5 @@
 import { Hono } from 'hono';
 import { logger } from 'hono/logger';
-import { serve } from '@hono/node-server';
 import { serveStatic } from 'hono/serve-static';
 
 import cors from './middleware/middleware';
@@ -22,11 +21,6 @@ routes(app);
 
 app.get('/', (c) => {
     return c.text('Hello Hono!');
-});
-
-serve({
-    fetch: app.fetch,
-    port: 3000,
 });
 
 export default app;

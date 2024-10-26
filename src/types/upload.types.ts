@@ -14,4 +14,4 @@ interface UploadResult {
     };
 }
 
-export { UploadResult };
+export { UploadFields, UploadedFile, UploadResult };
