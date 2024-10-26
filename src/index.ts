@@ -4,6 +4,7 @@ import { serve } from '@hono/node-server';
 import { serveStatic } from 'hono/serve-static';
 
 import cors from './middleware/middleware';
+import routes from './routes/upload.routes';
 
 const app = new Hono();
 
@@ -17,6 +18,7 @@ app.use('/uploads', serveStatic({
     },
 }));
 app.use(logger());
+routes(app);
 
 app.get('/', (c) => {
     return c.text('Hello Hono!');
